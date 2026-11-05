@@ -88,7 +88,7 @@ export default async function AdminStudentPage({
         <header className="mt-4 flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">{student.name}</h1>
-            <p className="mt-1 text-sm text-[var(--muted)]">
+            <p className="mt-1 text-sm text-[var(--ink-3)]">
               {student.email}
               {student.branch && ` · ${student.branch}`}
               {` · joined ${new Date(student.created_at).toLocaleDateString("en-IN", {
@@ -102,7 +102,7 @@ export default async function AdminStudentPage({
         </header>
 
         {completed.length === 0 ? (
-          <div className="card mt-8 p-8 text-center text-[var(--muted)]">
+          <div className="card mt-8 p-8 text-center text-[var(--ink-3)]">
             This student has not completed any interviews yet.
           </div>
         ) : (
@@ -124,10 +124,10 @@ export default async function AdminStudentPage({
                     const score = Number(i.overall_score ?? 0);
                     const tone =
                       score >= 7
-                        ? "var(--success)"
+                        ? "var(--good-text)"
                         : score >= 5
-                          ? "var(--warning)"
-                          : "var(--danger)";
+                          ? "var(--mid-text)"
+                          : "var(--bad-text)";
                     return (
                       <div
                         key={i.id}
@@ -148,7 +148,7 @@ export default async function AdminStudentPage({
                     );
                   })}
                 </div>
-                <p className="mt-3 text-center text-xs text-[var(--muted)]">
+                <p className="mt-3 text-center text-xs text-[var(--ink-3)]">
                   Oldest to most recent
                 </p>
               </section>
@@ -170,12 +170,12 @@ export default async function AdminStudentPage({
         )}
 
         <section className="mt-10">
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--muted)]">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--ink-3)]">
             Interview history
           </h2>
 
           {interviews.length === 0 ? (
-            <div className="card p-8 text-center text-[var(--muted)]">
+            <div className="card p-8 text-center text-[var(--ink-3)]">
               Nothing to show yet.
             </div>
           ) : (
@@ -187,7 +187,7 @@ export default async function AdminStudentPage({
                       <p className="font-semibold">
                         {DOMAINS[i.domain] ?? i.domain}
                       </p>
-                      <p className="mt-0.5 text-sm text-[var(--muted)]">
+                      <p className="mt-0.5 text-sm text-[var(--ink-3)]">
                         {i.role} · {i.difficulty} ·{" "}
                         {new Date(i.created_at).toLocaleDateString("en-IN", {
                           day: "numeric",
@@ -200,14 +200,14 @@ export default async function AdminStudentPage({
                     {i.status === "completed" ? (
                       <ScorePill score={Number(i.overall_score ?? 0)} />
                     ) : (
-                      <span className="shrink-0 rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--muted)]">
+                      <span className="shrink-0 rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--ink-3)]">
                         {i.status === "in_progress" ? "In progress" : "Abandoned"}
                       </span>
                     )}
                   </div>
 
                   {i.summary && (
-                    <p className="mt-3 border-t border-[var(--border)] pt-3 text-sm leading-relaxed text-[var(--muted)]">
+                    <p className="mt-3 border-t border-[var(--border)] pt-3 text-sm leading-relaxed text-[var(--ink-3)]">
                       {i.summary}
                     </p>
                   )}
@@ -224,7 +224,7 @@ export default async function AdminStudentPage({
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="card p-4">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-3)]">
         {label}
       </p>
       <p className="mt-1.5 text-2xl font-bold tabular-nums">{value}</p>

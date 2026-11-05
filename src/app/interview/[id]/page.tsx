@@ -1,7 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { queryOne } from "@/lib/db";
-import { SiteHeader } from "@/components/SiteHeader";
 import { InterviewSession } from "@/components/InterviewSession";
 import { DOMAINS, type DomainKey } from "@/lib/interview";
 import { clientFlags } from "@/lib/env";
@@ -42,10 +41,10 @@ export default async function InterviewPage({
 
   if (!current) redirect(`/report/${id}`);
 
+  // No site header here: the interview takes the whole viewport so it
+  // reads as a call rather than a page inside the app.
   return (
-    <>
-      <SiteHeader />
-      <InterviewSession
+    <InterviewSession
         interviewId={interview.id}
         domainLabel={DOMAINS[interview.domain] ?? interview.domain}
         role={interview.role}
@@ -53,9 +52,8 @@ export default async function InterviewPage({
         initialPosition={current.position}
         initialQuestion={current.question}
         initialCategory={current.category}
-        webcamPreview={clientFlags.webcamPreview}
-        webcamRecording={clientFlags.webcamRecording}
-      />
-    </>
+      webcamPreview={clientFlags.webcamPreview}
+      webcamRecording={clientFlags.webcamRecording}
+    />
   );
 }

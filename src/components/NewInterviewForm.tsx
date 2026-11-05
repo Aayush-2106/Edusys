@@ -100,7 +100,7 @@ export function NewInterviewForm({
           defaultValue={defaultQuestionCount}
           className="input"
         />
-        <p className="mt-1.5 text-xs text-[var(--muted)]">
+        <p className="mt-1.5 text-xs text-[var(--ink-3)]">
           Allow roughly two minutes per question.
         </p>
       </div>
@@ -108,7 +108,7 @@ export function NewInterviewForm({
       {error && (
         <p
           role="alert"
-          className="rounded-lg border border-[var(--danger)] px-3 py-2 text-sm text-[var(--danger)]"
+          className="rounded-lg border border-[var(--bad-text)] px-3 py-2 text-sm text-[var(--bad-text)]"
         >
           {error}
         </p>

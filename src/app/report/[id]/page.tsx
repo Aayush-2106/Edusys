@@ -76,7 +76,7 @@ export default async function ReportPage({
         <header className="mt-4 flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Performance report</h1>
-            <p className="mt-1 text-sm text-[var(--muted)]">
+            <p className="mt-1 text-sm text-[var(--ink-3)]">
               {DOMAINS[interview.domain] ?? interview.domain} · {interview.role} ·{" "}
               {interview.difficulty}
               {interview.completed_at &&
@@ -91,7 +91,7 @@ export default async function ReportPage({
         </header>
 
         {interview.status === "abandoned" && (
-          <p className="mt-6 rounded-lg border border-[var(--warning)] px-4 py-3 text-sm text-[var(--warning)]">
+          <p className="mt-6 rounded-lg border border-[var(--mid-text)] px-4 py-3 text-sm text-[var(--mid-text)]">
             This interview was ended early, so the report covers only the{" "}
             {answered.length} question{answered.length === 1 ? "" : "s"} you answered.
           </p>
@@ -100,7 +100,7 @@ export default async function ReportPage({
         {interview.summary && (
           <section className="card mt-6 p-6">
             <h2 className="mb-2 font-semibold">Overall assessment</h2>
-            <p className="leading-relaxed text-[var(--muted)]">{interview.summary}</p>
+            <p className="leading-relaxed text-[var(--ink-3)]">{interview.summary}</p>
           </section>
         )}
 
@@ -122,11 +122,11 @@ export default async function ReportPage({
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {interview.strengths && interview.strengths.length > 0 && (
             <section className="card p-6">
-              <h2 className="mb-3 font-semibold text-[var(--success)]">Strengths</h2>
-              <ul className="space-y-2 text-sm leading-relaxed text-[var(--muted)]">
+              <h2 className="mb-3 font-semibold text-[var(--good-text)]">Strengths</h2>
+              <ul className="space-y-2 text-sm leading-relaxed text-[var(--ink-3)]">
                 {interview.strengths.map((s, i) => (
                   <li key={i} className="flex gap-2">
-                    <span className="text-[var(--success)]">✓</span>
+                    <span className="text-[var(--good-text)]">✓</span>
                     <span>{s}</span>
                   </li>
                 ))}
@@ -136,13 +136,13 @@ export default async function ReportPage({
 
           {interview.improvements && interview.improvements.length > 0 && (
             <section className="card p-6">
-              <h2 className="mb-3 font-semibold text-[var(--warning)]">
+              <h2 className="mb-3 font-semibold text-[var(--mid-text)]">
                 Areas to improve
               </h2>
-              <ul className="space-y-2 text-sm leading-relaxed text-[var(--muted)]">
+              <ul className="space-y-2 text-sm leading-relaxed text-[var(--ink-3)]">
                 {interview.improvements.map((s, i) => (
                   <li key={i} className="flex gap-2">
-                    <span className="text-[var(--warning)]">→</span>
+                    <span className="text-[var(--mid-text)]">→</span>
                     <span>{s}</span>
                   </li>
                 ))}
@@ -152,7 +152,7 @@ export default async function ReportPage({
         </div>
 
         <section className="mt-10">
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--muted)]">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--ink-3)]">
             Question by question
           </h2>
 
@@ -161,7 +161,7 @@ export default async function ReportPage({
               <details key={q.position} className="card group p-5" open={q.position === 1}>
                 <summary className="flex cursor-pointer items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-3)]">
                       Question {q.position}
                       {q.category ? ` · ${q.category}` : ""}
                     </p>
@@ -170,7 +170,7 @@ export default async function ReportPage({
                   {q.score !== null ? (
                     <ScorePill score={Number(q.score)} />
                   ) : (
-                    <span className="shrink-0 text-xs text-[var(--muted)]">
+                    <span className="shrink-0 text-xs text-[var(--ink-3)]">
                       Not reached
                     </span>
                   )}
@@ -182,14 +182,14 @@ export default async function ReportPage({
                       <>
                         {q.answer}
                         {(q.answer_mode || q.duration_secs !== null) && (
-                          <span className="mt-1 block text-xs text-[var(--muted)]">
+                          <span className="mt-1 block text-xs text-[var(--ink-3)]">
                             {q.answer_mode === "voice" ? "Spoken" : "Typed"}
                             {q.duration_secs !== null && ` · ${q.duration_secs}s`}
                           </span>
                         )}
                       </>
                     ) : (
-                      <em className="text-[var(--muted)]">No answer given.</em>
+                      <em className="text-[var(--ink-3)]">No answer given.</em>
                     )}
                   </Block>
 
@@ -220,7 +220,7 @@ export default async function ReportPage({
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--ink-3)]">
         {title}
       </p>
       <p className="text-sm leading-relaxed">{children}</p>

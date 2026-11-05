@@ -46,7 +46,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       <h1 className="text-2xl font-bold tracking-tight">
         {isRegister ? "Create your account" : "Welcome back"}
       </h1>
-      <p className="mt-1.5 text-sm text-[var(--muted)]">
+      <p className="mt-1.5 text-sm text-[var(--ink-3)]">
         {isRegister
           ? "Start practising in under a minute."
           : "Sign in to continue preparing."}
@@ -90,7 +90,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             autoComplete={isRegister ? "new-password" : "current-password"}
           />
           {isRegister && (
-            <p className="mt-1.5 text-xs text-[var(--muted)]">At least 8 characters.</p>
+            <p className="mt-1.5 text-xs text-[var(--ink-3)]">At least 8 characters.</p>
           )}
         </div>
 
@@ -111,7 +111,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         {error && (
           <p
             role="alert"
-            className="rounded-lg border border-[var(--danger)] px-3 py-2 text-sm text-[var(--danger)]"
+            className="rounded-lg border border-[var(--bad-text)] px-3 py-2 text-sm text-[var(--bad-text)]"
           >
             {error}
           </p>
@@ -128,7 +128,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-[var(--muted)]">
+      <p className="mt-6 text-center text-sm text-[var(--ink-3)]">
         {isRegister ? "Already have an account? " : "New to Edusys? "}
         <Link
           href={isRegister ? "/login" : "/register"}

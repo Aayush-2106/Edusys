@@ -12,7 +12,7 @@ export default async function NewInterviewPage() {
       <SiteHeader />
       <main className="mx-auto max-w-xl px-4 py-12">
         <h1 className="text-2xl font-bold tracking-tight">Set up your interview</h1>
-        <p className="mt-1.5 text-sm text-[var(--muted)]">
+        <p className="mt-1.5 text-sm text-[var(--ink-3)]">
           The interviewer adapts its questions as you go, so answer as you would in a
           real interview.
         </p>

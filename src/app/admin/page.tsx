@@ -40,7 +40,7 @@ export default async function AdminPage({
             Placement cell
           </p>
           <h1 className="mt-1 text-2xl font-bold tracking-tight">Cohort overview</h1>
-          <p className="mt-1 text-sm text-[var(--muted)]">
+          <p className="mt-1 text-sm text-[var(--ink-3)]">
             Interview activity and readiness across all registered students.
           </p>
         </header>
@@ -79,7 +79,7 @@ export default async function AdminPage({
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
           <section className="card p-6">
             <h2 className="font-semibold">Weakest subjects</h2>
-            <p className="mb-4 mt-1 text-sm text-[var(--muted)]">
+            <p className="mb-4 mt-1 text-sm text-[var(--ink-3)]">
               Lowest average first — where the cohort needs teaching support.
             </p>
 
@@ -91,7 +91,7 @@ export default async function AdminPage({
                   <div key={d.domain}>
                     <div className="mb-1 flex items-baseline justify-between gap-3 text-sm">
                       <span className="truncate">{d.label}</span>
-                      <span className="shrink-0 text-xs text-[var(--muted)]">
+                      <span className="shrink-0 text-xs text-[var(--ink-3)]">
                         {d.attempts} attempt{d.attempts === 1 ? "" : "s"}
                       </span>
                     </div>
@@ -104,7 +104,7 @@ export default async function AdminPage({
 
           <section className="card p-6">
             <h2 className="font-semibold">Skill breakdown</h2>
-            <p className="mb-4 mt-1 text-sm text-[var(--muted)]">
+            <p className="mb-4 mt-1 text-sm text-[var(--ink-3)]">
               Averaged across every scored answer in the cohort.
             </p>
 
@@ -126,21 +126,21 @@ export default async function AdminPage({
 
         <section className="mt-10">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted)]">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--ink-3)]">
               Students{q ? ` matching “${q}”` : ""}
             </h2>
             <StudentSearch initial={q ?? ""} />
           </div>
 
           {students.length === 0 ? (
-            <div className="card p-8 text-center text-[var(--muted)]">
+            <div className="card p-8 text-center text-[var(--ink-3)]">
               {q ? `No students match “${q}”.` : "No students have registered yet."}
             </div>
           ) : (
             <div className="card overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-[var(--border)] text-left text-xs uppercase tracking-wider text-[var(--muted)]">
+                  <tr className="border-b border-[var(--border)] text-left text-xs uppercase tracking-wider text-[var(--ink-3)]">
                     <th className="px-4 py-3 font-semibold">Student</th>
                     <th className="px-4 py-3 font-semibold">Branch</th>
                     <th className="px-4 py-3 text-right font-semibold">Completed</th>
@@ -153,7 +153,7 @@ export default async function AdminPage({
                   {students.map((s) => (
                     <tr
                       key={s.id}
-                      className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--background)]"
+                      className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--surface-2)]"
                     >
                       <td className="px-4 py-3">
                         <Link
@@ -162,13 +162,13 @@ export default async function AdminPage({
                         >
                           {s.name}
                         </Link>
-                        <div className="text-xs text-[var(--muted)]">{s.email}</div>
+                        <div className="text-xs text-[var(--ink-3)]">{s.email}</div>
                       </td>
-                      <td className="px-4 py-3 text-[var(--muted)]">{s.branch ?? "—"}</td>
+                      <td className="px-4 py-3 text-[var(--ink-3)]">{s.branch ?? "—"}</td>
                       <td className="px-4 py-3 text-right tabular-nums">{s.completed}</td>
                       <td className="px-4 py-3 text-right">
                         {s.averageScore === null ? (
-                          <span className="text-[var(--muted)]">—</span>
+                          <span className="text-[var(--ink-3)]">—</span>
                         ) : (
                           <ScorePill score={s.averageScore} />
                         )}
@@ -176,7 +176,7 @@ export default async function AdminPage({
                       <td className="px-4 py-3 text-right tabular-nums">
                         {s.bestScore === null ? "—" : s.bestScore.toFixed(1)}
                       </td>
-                      <td className="px-4 py-3 text-right text-xs text-[var(--muted)]">
+                      <td className="px-4 py-3 text-right text-xs text-[var(--ink-3)]">
                         {s.lastActivity
                           ? new Date(s.lastActivity).toLocaleDateString("en-IN", {
                               day: "numeric",
@@ -207,15 +207,15 @@ function Stat({
 }) {
   return (
     <div className="card p-4">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-3)]">
         {label}
       </p>
       <p className="mt-1.5 text-2xl font-bold tabular-nums">{value}</p>
-      {hint && <p className="mt-0.5 text-xs text-[var(--muted)]">{hint}</p>}
+      {hint && <p className="mt-0.5 text-xs text-[var(--ink-3)]">{hint}</p>}
     </div>
   );
 }
 
 function Empty({ children }: { children: React.ReactNode }) {
-  return <p className="py-6 text-center text-sm text-[var(--muted)]">{children}</p>;
+  return <p className="py-6 text-center text-sm text-[var(--ink-3)]">{children}</p>;
 }

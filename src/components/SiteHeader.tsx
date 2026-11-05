@@ -30,7 +30,7 @@ export async function SiteHeader() {
                 </Link>
               </>
             )}
-            <span className="hidden text-sm text-[var(--muted)] sm:inline">
+            <span className="hidden text-sm text-[var(--ink-3)] sm:inline">
               {user.name}
             </span>
             <LogoutButton />
