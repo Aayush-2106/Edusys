@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { queryOne } from "@/lib/db";
-import { createSession, hashPassword } from "@/lib/auth";
+import { createSession, hashPassword, type SessionUser } from "@/lib/auth";
 import { handler, fail, ok } from "@/lib/api";
 
 const schema = z.object({
@@ -24,10 +24,12 @@ export const POST = handler(async (request: Request) => {
 
   const passwordHash = await hashPassword(input.password);
 
-  const user = await queryOne<{ id: string; name: string; email: string }>(
+  // Note: role is deliberately not accepted from the request body —
+  // every account starts as a student and must be promoted server-side.
+  const user = await queryOne<SessionUser>(
     `INSERT INTO users (name, email, password_hash, branch, college)
      VALUES ($1, $2, $3, $4, $5)
-     RETURNING id, name, email`,
+     RETURNING id, name, email, role`,
     [input.name, input.email, passwordHash, input.branch ?? null, input.college ?? null],
   );
 

@@ -13,6 +13,8 @@ Group 38 · Department of Computer Engineering · Atharva College of Engineering
 
 ## What it does
 
+### For students
+
 A student picks a target role, a focus area (DSA, DBMS, OS, CN, OOP, Web, Aptitude,
 HR) and a difficulty. The AI interviewer then asks questions one at a time, reading
 each aloud and transcribing the student's spoken reply, with a webcam preview to
@@ -23,6 +25,25 @@ strengths, and areas to improve, all stored so progress can be tracked over time
 
 Questions are **adaptive**: the next one is generated from the transcript so far,
 going deeper after a strong answer and changing sub-topic after a weak one.
+
+### For the placement cell
+
+Staff accounts see a cohort dashboard at `/admin`: how many students have registered
+versus actually practised, the cohort average, how many are scoring 7+, which
+subjects the cohort is weakest in, and a searchable table of every student. Opening
+a student shows their score trend over time, skill breakdown, and full interview
+history.
+
+Promotion to staff is a command-line operation, never a UI toggle:
+
+```bash
+npm run make-admin -- officer@atharvacoe.ac.in
+npm run make-admin -- officer@atharvacoe.ac.in --revoke
+```
+
+The account must already exist. Roles are read from the database on every request
+rather than from the session cookie, so a revoke takes effect immediately instead of
+whenever the cookie happens to expire.
 
 ## Tech stack
 
@@ -71,6 +92,8 @@ src/
 │   ├── interview/new/                interview setup
 │   ├── interview/[id]/               the live interview
 │   ├── report/[id]/                  performance report
+│   ├── admin/                        placement-cell cohort dashboard
+│   └── admin/students/[id]/          one student's progress
 │   └── api/
 │       ├── auth/{register,login,logout}/
 │       └── interviews/
@@ -94,7 +117,8 @@ src/
 
 ## Database schema
 
-- **`users`** — name, email (unique, case-insensitive), bcrypt password hash, branch.
+- **`users`** — name, email (unique, case-insensitive), bcrypt password hash, branch,
+  and `role` (`student` | `admin`).
 - **`interviews`** — role, domain, difficulty, status, overall score, summary,
   strengths, improvements, per-parameter averages.
 - **`interview_questions`** — one row per question: text, the answer, how it was
@@ -118,4 +142,5 @@ the student blocks it, the interview still runs.
 | `npm run build` | Production build |
 | `npm start` | Serve the production build |
 | `npm run db:migrate` | Apply `src/db/schema.sql` |
+| `npm run make-admin -- <email>` | Promote an account to placement-cell staff |
 | `npm run lint` | ESLint |

@@ -19,6 +19,15 @@ CREATE TABLE IF NOT EXISTS users (
 -- Email lookups happen on every login; make them case-insensitive and indexed.
 CREATE UNIQUE INDEX IF NOT EXISTS users_email_lower_idx ON users (lower(email));
 
+-- Roles. Everyone registers as a student; placement-cell staff are promoted
+-- deliberately with `npm run make-admin <email>` — never through the UI.
+DO $$ BEGIN
+  CREATE TYPE user_role AS ENUM ('student', 'admin');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS role user_role NOT NULL DEFAULT 'student';
+
 -- ─────────────────────────────────────────────────────────────
 -- Interviews
 -- ─────────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
-import { UnauthorizedError } from "./auth";
+import { ForbiddenError, UnauthorizedError } from "./auth";
 import { GeminiError } from "./gemini";
 
 /** Consistent error envelope so the client can always read `.error`. */
@@ -25,6 +25,10 @@ export function handler<Args extends unknown[]>(
     } catch (error) {
       if (error instanceof UnauthorizedError) {
         return fail("You need to sign in to do that.", 401);
+      }
+
+      if (error instanceof ForbiddenError) {
+        return fail("You do not have access to that.", 403);
       }
 
       if (error instanceof ZodError) {

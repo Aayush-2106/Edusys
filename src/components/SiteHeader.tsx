@@ -17,6 +17,19 @@ export async function SiteHeader() {
 
         {user ? (
           <div className="flex items-center gap-3">
+            {user.role === "admin" && (
+              <>
+                <Link
+                  href="/admin"
+                  className="text-sm font-semibold text-[var(--brand)]"
+                >
+                  Placement cell
+                </Link>
+                <Link href="/dashboard" className="text-sm font-semibold">
+                  My practice
+                </Link>
+              </>
+            )}
             <span className="hidden text-sm text-[var(--muted)] sm:inline">
               {user.name}
             </span>

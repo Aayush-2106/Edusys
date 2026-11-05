@@ -7,10 +7,13 @@ import { queryOne } from "./db";
 const COOKIE_NAME = "edusys_session";
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
+export type UserRole = "student" | "admin";
+
 export type SessionUser = {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
 };
 
 function secretKey(): Uint8Array {
@@ -69,8 +72,11 @@ export async function getCurrentUser(): Promise<SessionUser | null> {
     const id = payload.sub;
     if (!id) return null;
 
+    // The role is read from the database rather than the token, so a
+    // promotion or demotion takes effect immediately instead of when
+    // the cookie happens to expire.
     return await queryOne<SessionUser>(
-      "SELECT id, name, email FROM users WHERE id = $1",
+      "SELECT id, name, email, role FROM users WHERE id = $1",
       [id],
     );
   } catch {
@@ -86,9 +92,23 @@ export async function requireUser(): Promise<SessionUser> {
   return user;
 }
 
+/** Use inside routes and pages that only placement-cell staff may see. */
+export async function requireAdmin(): Promise<SessionUser> {
+  const user = await requireUser();
+  if (user.role !== "admin") throw new ForbiddenError();
+  return user;
+}
+
 export class UnauthorizedError extends Error {
   constructor() {
     super("Not signed in");
     this.name = "UnauthorizedError";
+  }
+}
+
+export class ForbiddenError extends Error {
+  constructor() {
+    super("You do not have access to that");
+    this.name = "ForbiddenError";
   }
 }
